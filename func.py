@@ -1,27 +1,43 @@
 import const
 import math as m
 import math_functions as mf
+import numpy as np
 
 def get_result(a,b,fun):
-    res = []
+    res = [[],[]]
+    current = None
     math_func = None
     if(fun == 'sin(x)'):
         math_func = mf.sin
+        current = -m.cos(b)+m.cos(a)
     if(fun == 'cos^2(x)'):
         math_func = mf.cos_2
-    if(fun == '3*(x^4)'):
-        math_func = mf.x_4_3
+        current = (b/2)+(m.sin(2*b)/4)-(a/2)-(m.sin(2*a)/4)
+    if(fun == '5*(x^4)'):
+        math_func = mf.x_4_5
+        current = m.pow(b,5)-m.pow(a,5)
     if(fun == 'x^3'):
         math_func = mf.x_3
+        current = (m.pow(b,4)/4)-(m.pow(a,4)/4)
     if(fun == 'cos(x)'):
         math_func = mf.cos
+        current = m.sin(b)-m.sin(a)
     if(fun == 'x^2'):
         math_func = mf.x_2
+        current = (m.pow(b,3)-m.pow(a,3))/3
     
     dots = gen_dots(a,b,math_func)
-    res.append(sympson(dots))
-    res.append(three_eight(dots))
-    res.append(five_dots(dots))
+    symps = sympson(dots)
+    t_e = three_eight(dots)
+    f_d = five_dots(dots)
+    res[0].append(symps)
+    res[0].append(t_e)
+    res[0].append(f_d)
+    res[0].append(current)
+    res[1].append(np.abs(current - symps))
+    res[1].append(np.abs(current - t_e))
+    res[1].append(np.abs(current - f_d))
+    res[1].append(np.abs(current - current))
     return res
 
 
@@ -31,7 +47,7 @@ def foo(x):
 def gen_dots(a,b,function):
     x = a
     dots = [[],[]]
-    while x<b:
+    while x<b+const.eps:
         y = function(x)
         dots[0].append(x)
         dots[1].append(y)
