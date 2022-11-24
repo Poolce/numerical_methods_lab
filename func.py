@@ -34,10 +34,10 @@ def get_result(a,b,fun):
     res[0].append(t_e)
     res[0].append(f_d)
     res[0].append(current)
-    res[1].append(np.abs(current - symps))
-    res[1].append(np.abs(current - t_e))
-    res[1].append(np.abs(current - f_d))
-    res[1].append(np.abs(current - current))
+    res[1].append(np.abs(current - symps)/current*100)
+    res[1].append(np.abs(current - t_e)/current*100)
+    res[1].append(np.abs(current - f_d)/current*100)
+    res[1].append(np.abs(current - current)/current*100)
     return res
 
 
