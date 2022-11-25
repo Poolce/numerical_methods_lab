@@ -40,20 +40,22 @@ class Ui_Dialog(object):
         self.frame.setObjectName("frame")
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.frame)
         self.doubleSpinBox.setGeometry(QtCore.QRect(65, 107, 62, 22))
-        self.doubleSpinBox.setStyleSheet("background:rgb(170, 255, 255);\n"
-"font: 12pt \"YouYuan\";\n"
-"border:none;")
+        self.doubleSpinBox.setStyleSheet("background:rgb(170, 255, 255);\n""font: 12pt \"YouYuan\";\n""border:none;")
         self.doubleSpinBox.setMinimum(-10.0)
         self.doubleSpinBox.setMaximum(10.0)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.doubleSpinBox_2 = QtWidgets.QDoubleSpinBox(self.frame)
         self.doubleSpinBox_2.setGeometry(QtCore.QRect(65, 10, 62, 22))
-        self.doubleSpinBox_2.setStyleSheet("background:rgb(170, 255, 255);\n"
-"font: 12pt \"YouYuan\";\n"
-"border:none;")
+        self.doubleSpinBox_2.setStyleSheet("background:rgb(170, 255, 255);\n""font: 12pt \"YouYuan\";\n""border:none;")
         self.doubleSpinBox_2.setMinimum(-10.0)
         self.doubleSpinBox_2.setMaximum(10.0)
-        self.doubleSpinBox_2.setObjectName("doubleSpinBox_2")
+        self.doubleSpinBox_2.setObjectName("SpinBox_2")
+        self.SpinBox_3 = QtWidgets.QSpinBox(Dialog)
+        self.SpinBox_3.setGeometry(QtCore.QRect(20, 200, 62, 22))
+        self.SpinBox_3.setStyleSheet("background:rgb(170, 255, 255);\n""font: 12pt \"YouYuan\";\n""border:none;")
+        self.SpinBox_3.setMinimum(1)
+        self.SpinBox_3.setMaximum(10000)
+        self.SpinBox_3.setObjectName("SpinBox_3")
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(90, 50, 301, 61))
         self.label.setStyleSheet("background:rgb(170, 255, 255);\n"
@@ -67,6 +69,7 @@ class Ui_Dialog(object):
 "font: 48pt \"YouYuan\";")
         self.label_2.setObjectName("label_2")
         self.label_2.raise_()
+        self.SpinBox_3.raise_()
         self.doubleSpinBox_2.raise_()
         self.doubleSpinBox.raise_()
         self.label.raise_()
@@ -138,7 +141,7 @@ class Ui_Dialog(object):
 
 
     def on_click_button(self):
-        s = func.get_result(self.doubleSpinBox.value(),self.doubleSpinBox_2.value(),self.comboBox.currentText())
+        s = func.get_result(self.doubleSpinBox.value(),self.doubleSpinBox_2.value(),self.comboBox.currentText(),self.SpinBox_3.value())
         self.tableWidget.setItem(0,0,QtWidgets.QTableWidgetItem(str(s[0][0])))
         self.tableWidget.setItem(0,1,QtWidgets.QTableWidgetItem(str(s[0][1])))
         self.tableWidget.setItem(0,2,QtWidgets.QTableWidgetItem(str(s[0][2])))

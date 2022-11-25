@@ -2,8 +2,24 @@ import const
 import math as m
 import math_functions as mf
 import numpy as np
+import methods as meth
 
-def get_result(a,b,fun):
+
+def gen_x_dots(a,b,n):
+    eps = (b-a)/n
+    res = []
+    for i in range(n+1):
+        res.append(a+eps*i)
+    return res
+
+def get_method_result(a,b,n,function,method):
+    res = 0
+    dots = gen_x_dots(a,b,n)
+    for i in range(n):
+        res+=method(dots[i],dots[i+1],function)
+    return res
+
+def get_result(a,b,fun,n):
     res = [[],[]]
     current = None
     math_func = None
@@ -26,10 +42,10 @@ def get_result(a,b,fun):
         math_func = mf.x_2
         current = (m.pow(b,3)-m.pow(a,3))/3
     
-    dots = gen_dots(a,b,math_func)
-    symps = sympson(dots)
-    t_e = three_eight(dots)
-    f_d = five_dots(dots)
+    symps = get_method_result(a,b,n,math_func,meth.sympson)
+    t_e = get_method_result(a,b,n,math_func,meth.three_eight)
+    f_d = get_method_result(a,b,n,math_func,meth.five_dots)
+
     res[0].append(symps)
     res[0].append(t_e)
     res[0].append(f_d)
@@ -39,36 +55,3 @@ def get_result(a,b,fun):
     res[1].append(np.abs(current - f_d)/current*100)
     res[1].append(np.abs(current - current)/current*100)
     return res
-
-
-def foo(x):
-    return m.pow(x,2)+1
-
-def gen_dots(a,b,function):
-    x = a
-    dots = [[],[]]
-    while x<b+const.eps:
-        y = function(x)
-        dots[0].append(x)
-        dots[1].append(y)
-        x+=const.eps
-    return dots
-
-def sympson(arr):
-    sum = 0
-    for i in range(len(arr[0])-2):
-        sum += arr[1][i]+4*arr[1][i+1]+arr[1][i+2]
-    return sum*const.eps/6
-
-
-def three_eight(arr):
-    sum = 0
-    for i in range(len(arr[0])-3):
-        sum += arr[1][i]+3*arr[1][i+1]+3*arr[1][i+2]+arr[1][i+3]
-    return sum*const.eps/8
-
-def five_dots(arr):
-    sum = 0
-    for i in range(len(arr[0])-4):
-        sum += arr[1][i]+4*arr[1][i+1]+6*arr[1][i+2]+4*arr[1][i+3]+arr[1][i+4]
-    return sum*const.eps/16
